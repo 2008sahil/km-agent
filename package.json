@@ -1,0 +1,22 @@
+{
+  "name": "kloudmate__agent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.56.0",
+    "@opentelemetry/resources": "^1.29.0",
+    "@opentelemetry/sdk-metrics": "^1.29.0",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "js-yaml": "^4.1.0",
+    "nodemon": "^3.1.7",
+    "process": "^0.11.10"
+  }
+}

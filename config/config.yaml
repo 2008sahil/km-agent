@@ -1,0 +1,31 @@
+receivers:
+  otlp/5:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4350
+  otlp:
+    protocols:
+      grpc: {}
+processors:
+  batch/5: null
+  batch: {}
+exporters:
+  debug/5:
+    verbosity: detailed
+  debug: {}
+service:
+  pipelines:
+    metrics/5:
+      receivers:
+        - otlp/5
+      processors:
+        - batch/5
+      exporters:
+        - debug/5
+    traces/1:
+      receivers:
+        - otlp
+      processors:
+        - batch
+      exporters:
+        - debug
