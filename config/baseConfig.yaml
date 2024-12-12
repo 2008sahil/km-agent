@@ -17,3 +17,7 @@ service:
       receivers: [otlp/5]
       processors: [batch/5]
       exporters: [debug/5]
+    traces/5:
+      receivers: [otlp/5]
+      processors: [batch/5]
+      exporters: [debug/5]

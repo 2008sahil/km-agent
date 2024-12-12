@@ -5,6 +5,9 @@ const { Resource } = require('@opentelemetry/resources');
 const { OTLPMetricExporter } = require('@opentelemetry/exporter-metrics-otlp-proto');
 const { PeriodicExportingMetricReader } = require('@opentelemetry/sdk-metrics');
 
+const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
+const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-proto');
+const { SimpleSpanProcessor } = require('@opentelemetry/sdk-trace-base');
 const resource = new Resource({
   'service.name': 'km-agent',
 });
@@ -14,9 +17,18 @@ const metricExporter = new OTLPMetricExporter({
 });
 
 const meterProvider = new MeterProvider({ resource });
-meterProvider.addMetricReader(new PeriodicExportingMetricReader({ exporter: metricExporter ,exportIntervalMillis: 5000}));
+meterProvider.addMetricReader(new PeriodicExportingMetricReader({ exporter: metricExporter ,exportIntervalMillis: 15000}));
 
 const meter = meterProvider.getMeter('km-agent-metrics');
+
+
+// Tracer Provider Configuration
+const tracerProvider = new NodeTracerProvider({ resource });
+const traceExporter = new OTLPTraceExporter({
+  url: 'http://localhost:4350/v1/traces',
+});
+tracerProvider.addSpanProcessor(new SimpleSpanProcessor(traceExporter));
+tracerProvider.register();
 
 
 const uptimeCounter = meter.createCounter('agent_uptime', {

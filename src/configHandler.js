@@ -33,8 +33,8 @@ function mergeConfig(baseConfig, userConfig) {
     const baseParsed = parseYaml(baseConfig);
     const userParsed = (userConfig);
 
-    console.log("User Config:", baseParsed);
-    console.log("Merged Config:", userParsed);
+    // console.log("User Config:", baseParsed);
+    // console.log("Merged Config:", userParsed);
 
     baseParsed.service.pipelines = {
         ...baseParsed.service.pipelines,
